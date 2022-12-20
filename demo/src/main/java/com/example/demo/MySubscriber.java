@@ -101,6 +101,7 @@ public class MySubscriber {
              */
 
             ProjectSubscriptionName subscriptionName = ProjectSubscriptionName.of("TODO_DOCKER_PUBSUB", "test-sub");
+
             MessageReceiver receiver = new MessageReceiver() {
                 @Override
                 public void receiveMessage(PubsubMessage message, AckReplyConsumer consumer) {
