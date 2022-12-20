@@ -21,6 +21,8 @@ public class App {
 	public static void main(String[] args) throws IOException {
 		// Create a new ToDoListServer object
 		App server = new App();
+		MySubscriber subscriber = new MySubscriber();
+		subscriber.subscriber.startAsync().awaitRunning();
 
 		// Start the server and listen for incoming connections
 		server.startServer();

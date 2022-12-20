@@ -16,8 +16,9 @@ import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
 public class pub {
-    public void publish(String message) throws IOException {
+    public void publish(int message) throws IOException {
         String hostport = System.getenv("PUBSUB_EMULATOR_HOST");
+        System.out.print(hostport);
         ManagedChannel channel = ManagedChannelBuilder.forTarget(hostport).usePlaintext().build();
 
         try {

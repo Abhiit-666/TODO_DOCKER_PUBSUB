@@ -16,6 +16,8 @@ import java.nio.charset.StandardCharsets;
 @SpringBootApplication
 public class clientApp {
     public static void main(String[] args) throws IOException {
+
+        pub pub1 = new pub();
         try {
             // Create a socket to connect to the server
             Socket socket = new Socket("localhost", 8080);
@@ -62,6 +64,7 @@ public class clientApp {
                     case 1:
                         // Send the request to the server
                         output.writeInt(request);
+                        pub1.publish(request);
 
                         // Get the number of items from the server
                         int numberOfItems = input.readInt();
