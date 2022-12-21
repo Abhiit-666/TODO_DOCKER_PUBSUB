@@ -22,7 +22,7 @@ public class App {
 		// Create a new ToDoListServer object
 		App server = new App();
 		MySubscriber subscriber = new MySubscriber();
-		subscriber.subscriber.startAsync().awaitRunning();
+		subscriber.start();
 
 		// Start the server and listen for incoming connections
 		server.startServer();

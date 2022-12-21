@@ -83,8 +83,21 @@ import io.grpc.ManagedChannelBuilder;
 
 public class MySubscriber {
     public Subscriber subscriber;
+    private final MessageReceiver messageReceiver;
 
     public MySubscriber() throws IOException {
+        this.messageReceiver = new MessageReceiver() {
+            @Override
+            public void receiveMessage(PubsubMessage message, AckReplyConsumer consumer) {
+                // Process the message
+                System.out.println("Message Id: " + message.getMessageId());
+                System.out.println("Data: " + message.getData().toStringUtf8());
+                consumer.ack();
+            }
+        };
+    }
+
+    public void start() throws IOException {
         String hostport = System.getenv("PUBSUB_EMULATOR_HOST");
         System.out.println(hostport);
         ManagedChannel channel = ManagedChannelBuilder.forTarget(hostport).usePlaintext().build();
@@ -100,21 +113,14 @@ public class MySubscriber {
              * .setCredentialsProvider(credentialsProvider).build());
              */
 
-            ProjectSubscriptionName subscriptionName = ProjectSubscriptionName.of("TODO_DOCKER_PUBSUB", "test-sub");
+            ProjectSubscriptionName subscriptionName = ProjectSubscriptionName.of("TODO_DOCKER_PUBSUB", "testsub");
 
-            MessageReceiver receiver = new MessageReceiver() {
-                @Override
-                public void receiveMessage(PubsubMessage message, AckReplyConsumer consumer) {
-                    // Process the message
-                    System.out.println("Message Id: " + message.getMessageId());
-                    System.out.println("Data: " + message.getData().toStringUtf8());
-                    consumer.ack();
-                }
-            };
-            this.subscriber = Subscriber.newBuilder(subscriptionName, receiver)
+            this.subscriber = Subscriber.newBuilder(subscriptionName, messageReceiver)
                     .setChannelProvider(channelProvider)
                     .setCredentialsProvider(credentialsProvider).build();
-
+            this.subscriber.startAsync().awaitRunning();
+        } catch (Exception e) {
+            System.out.println(e);
         } finally {
             channel.shutdown();
         }
