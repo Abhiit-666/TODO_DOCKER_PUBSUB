@@ -16,7 +16,7 @@ import java.util.concurrent.CountDownLatch;
 @SpringBootApplication
 public class App {
 	// The data structure that will store the user's to-do list
-	private List<ToDoItem> toDoList = new ArrayList<>();
+	// private List<ToDoItem> toDoList = new ArrayList<>();
 
 	public static void main(String[] args) throws IOException {
 		// Create a new ToDoListServer object
@@ -48,32 +48,32 @@ public class App {
 		}
 	}
 
-	// implement the ToDoItem class
-	private class ToDoItem {
-		private String description;
-		private boolean isComplete;
+	// // implement the ToDoItem class
+	// private class ToDoItem {
+	// private String description;
+	// private boolean isComplete;
 
-		public ToDoItem(String description, boolean isComplete) {
-			this.description = description;
-			this.isComplete = isComplete;
-		}
+	// public ToDoItem(String description, boolean isComplete) {
+	// this.description = description;
+	// this.isComplete = isComplete;
+	// }
 
-		public String getDescription() {
-			return description;
-		}
+	// public String getDescription() {
+	// return description;
+	// }
 
-		public void setDescription(String description) {
-			this.description = description;
-		}
+	// public void setDescription(String description) {
+	// this.description = description;
+	// }
 
-		public boolean isComplete() {
-			return isComplete;
-		}
+	// public boolean isComplete() {
+	// return isComplete;
+	// }
 
-		public void setComplete(boolean complete) {
-			isComplete = complete;
-		}
-	}
+	// public void setComplete(boolean complete) {
+	// isComplete = complete;
+	// }
+	// }
 
 	// class for jdbc connection
 	public class JDBCConnection {
