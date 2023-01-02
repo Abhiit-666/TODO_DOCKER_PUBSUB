@@ -1,5 +1,5 @@
 import { Component,ElementRef,OnInit,ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TaskService} from '../task.service';
 
 
@@ -10,20 +10,24 @@ import {TaskService} from '../task.service';
 })
 
 export class NewComponent implements OnInit {
-  @ViewChild('title') titlInput:ElementRef; 
-  @ViewChild('description') descriptionInput:ElementRef;
-  taskForm=FormGroup;
+  
+  taskForm:FormGroup | undefined;
 
   constructor(private taskService:TaskService, private formBuilder:FormBuilder) { }
 
   ngOnInit(){
+    this.taskForm=this.formBuilder.group({
+      title:['',Validators.required],
+      status:[false]
+    });
 
   }
 
   addTask(){
-    const titleConteol=this.taskForm.get('title');
-
-    this.taskService.addTask(this.taskForm.value)
-    .subscribe(()=>this.taskForm.reset());
-  }
+    if(this.taskForm?.valid){
+      this.taskService.addTask(this.taskForm.value).subscribe(res=>{
+        console.log(res);
+      });
+    }
+}
 }
