@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormGroup,FormControl} from '@angular/forms';
+import { Component,ElementRef,OnInit,ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {TaskService} from '../task.service';
 
 
@@ -8,20 +8,21 @@ import {TaskService} from '../task.service';
   templateUrl: './new.component.html',
   styleUrls: ['./new.component.css']
 })
-export class NewComponent implements OnInit {
 
+export class NewComponent implements OnInit {
+  @ViewChild('title') titlInput:ElementRef; 
+  @ViewChild('description') descriptionInput:ElementRef;
   taskForm=FormGroup;
 
-  constructor(private taskService:TaskService) { }
+  constructor(private taskService:TaskService, private formBuilder:FormBuilder) { }
 
   ngOnInit(){
-    this.taskForm=new FormGroup({
-      title:new FormControl('')
-    });
 
   }
 
   addTask(){
+    const titleConteol=this.taskForm.get('title');
+
     this.taskService.addTask(this.taskForm.value)
     .subscribe(()=>this.taskForm.reset());
   }
