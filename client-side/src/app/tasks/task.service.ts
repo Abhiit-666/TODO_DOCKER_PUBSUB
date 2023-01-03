@@ -12,6 +12,10 @@ export class TaskService {
       return this.http.get('http://localhost:3000/tasks');
     }
 
+    getTaskbyId(id: string){
+      return this.http.get('http://localhost:3000/tasks/'+id);
+    }
+
     addTask(task: any){
       return this.http.post('http://localhost:3000/tasks',task);
     }

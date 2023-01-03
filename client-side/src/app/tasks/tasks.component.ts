@@ -9,7 +9,9 @@ import {Router} from '@angular/router';
 })
 export class TasksComponent {
   tasks:any; //array of tasks
-  constructor (private taskService:TaskService,private router:Router){}
+  constructor (
+    private taskService:TaskService,
+    private router:Router){}
 
   ngOnInit(){
     this.getTasks();
