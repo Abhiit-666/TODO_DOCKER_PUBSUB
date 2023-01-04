@@ -39,4 +39,14 @@ export class EditComponent implements OnInit {
   });
 }
 
+updateTask(){
+  if(this.taskForm?.valid){
+    const task=this.route.snapshot.paramMap.get('id');
+    this.taskService.updateTask(this.taskForm.value,task).subscribe(res=>{
+      console.log(res);
+    });
+
+  }
+}
+
 }

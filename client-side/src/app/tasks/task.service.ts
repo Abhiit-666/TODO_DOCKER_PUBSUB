@@ -12,7 +12,7 @@ export class TaskService {
       return this.http.get('http://localhost:3000/tasks');
     }
 
-    getTaskbyId(id: string){
+    getTaskbyId(id: string|null){
       return this.http.get('http://localhost:3000/tasks/'+id);
     }
 
@@ -20,7 +20,7 @@ export class TaskService {
       return this.http.post('http://localhost:3000/tasks',task);
     }
 
-    updateTask(task: { id: string; }){
+    updateTask(task: { id: string; },id: string){
       return this.http.put('http://localhost:3000/tasks/'+task.id,task);
     }
 
